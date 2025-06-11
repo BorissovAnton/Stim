@@ -176,6 +176,14 @@ struct Circuit {
     ///     The inverted circuit.
     Circuit inverse(bool allow_weak_inverse = false) const;
 
+    /// Helper method for executing the circuit, no special treatment of REPEAT
+    template <typename CALLBACK>
+    void for_each(const CALLBACK &callback) const {
+        for (const auto &op : operations) {
+            callback(op);
+        }
+    }
+
     /// Helper method for executing the circuit, e.g. repeating REPEAT blocks.
     template <typename CALLBACK>
     void for_each_operation(const CALLBACK &callback) const {
